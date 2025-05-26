@@ -8,6 +8,7 @@ Este proyecto muestra el análisis de datos climáticos extraídos desde archivo
 
 - [1. Extracción y apertura de datos climáticos](#1-extracción-y-apertura-de-datos-climáticos)
 - [2. Análisis por estación](#2-análisis-por-estación)
+- [2. Análisis por estación](#2-análisis-por-estación)
   - [2.1 Invierno](#21-invierno)
   - [2.2 Primavera](#22-primavera)
   - [2.3 Verano](#23-verano)
@@ -38,7 +39,7 @@ plot(lon,lat)
 ```
 ![extracción de temperatura global](Graphics/Rplot.png)
 
- 2. Promedio mensual por estación
+ 2. Análisis por estación
 Se calcula el promedio mensual para cada estación, agrupando por coordenadas y fechas.
 
 ```r
@@ -57,6 +58,7 @@ monthly_avg <- temp %>%
 ```
 3. Análisis PCA por estación
 A continuación se presentan los resultados para cada estación: screeplot, PCA y heatmap.
+
 3.1 Invierno
 Código PCA:
 
