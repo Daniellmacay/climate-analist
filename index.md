@@ -40,6 +40,7 @@ plot(lon,lat)
 
  2. Promedio mensual por estación
 Se calcula el promedio mensual para cada estación, agrupando por coordenadas y fechas.
+
 ```r
 library(dplyr)
 library(lubridate)
