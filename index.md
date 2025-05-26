@@ -32,3 +32,9 @@ temp <- ncvar_get(data, "temperature")
 
 # Cerrar archivo
 nc_close(data)
+
+# Mostrar grafico de temperaturas globales
+plot(lon,lat)
+
+## 2. Promedio mensual por estación
+Se calcula el promedio mensual para cada estación, agrupando por coordenadas y fechas.
