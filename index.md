@@ -77,6 +77,7 @@ plot(pca_inv, type = "l")
 biplot(pca_inv)
 
 ```
+
 3.2 Primavera
 Código PCA:
 
