@@ -59,6 +59,7 @@ monthly_avg <- temp %>%
 A continuación se presentan los resultados para cada estación: screeplot, PCA y heatmap.
 3.1 Invierno
 Código PCA:
+
 ```r
 # Filtrar meses de invierno
 invierno <- monthly_avg %>% filter(month %in% c(12, 1, 2))
@@ -78,6 +79,7 @@ biplot(pca_inv)
 ```
 3.2 Primavera
 Código PCA:
+
 ```r
 primavera <- monthly_avg %>% filter(month %in% c(3, 4, 5))
 mat <- spread(primavera, key = lon, value = mean_temp)
@@ -88,6 +90,7 @@ biplot(pca_prim)
 ```
 3.3 Verano
 Código PCA:
+
 ```r
 verano <- monthly_avg %>% filter(month %in% c(6, 7, 8))
 mat <- spread(verano, key = lon, value = mean_temp)
@@ -98,6 +101,7 @@ biplot(pca_ver)
 ```
 3.4 Otoño
 Código PCA:
+
 ```r
 otonio <- monthly_avg %>% filter(month %in% c(9, 10, 11))
 mat <- spread(otonio, key = lon, value = mean_temp)
