@@ -170,13 +170,12 @@ biplot(pca_inv)
 
 ```
 Screeplot:
-![Screeplot Invierno](Graphics/screePlot_invierno.png)
-
+![Screeplot Invierno](Graphics/invierno/screePlot_invierno.png)
 
 PCA:
-![PCA invierno](Graphics/PCA_invierno.png)
+![PCA invierno](Graphics/invierno/PCA_invierno.png)
 
-Heatmap:
+
 3.1.1 Análisis estacional por decada
 Década 1950-1959
 
@@ -187,6 +186,16 @@ pca_inv_50s <- prcomp(mat_50s, scale. = TRUE)
 plot(pca_inv_50s, type = "l")
 biplot(pca_inv_50s)
 ```
+Screeplot:
+![Invierno 1950](Graphics/invierno/1950s/ScreePlot_invierno_1950s.png)
+
+PCA:
+![Invierno 1950](Graphics/invierno/1950s/PCA_invierno_1950s.png)
+
+Heatmap
+![Invierno 1950](Graphics/invierno/1950s/Heatmap_invierno_1950s.png)
+
+
 Década 1980-1989
 
 ```r
@@ -197,6 +206,16 @@ plot(pca_inv_80s, type = "l")
 biplot(pca_inv_80s)
 
 ```
+Screeplot:
+![Invierno 1980](Graphics/invierno/1980s/ScreePlot_invierno_1980s.png)
+
+PCA:
+![Invierno 1980](Graphics/invierno/1980s/PCA_invierno_1980s.png)
+
+Heatmap
+![Invierno 1980](Graphics/invierno/1980s/Heatmap_invierno_1980s.png)
+
+
 Década 2000-2009
 
 ```r
@@ -207,6 +226,15 @@ plot(pca_inv_00s, type = "l")
 biplot(pca_inv_00s)
 
 ```
+Screeplot:
+![Invierno 2000](Graphics/invierno/2000s/ScreePlot_invierno_2000s.png)
+
+PCA:
+![Invierno 2000](Graphics/invierno/2000s/PCA_invierno_2000s.png)
+
+Heatmap
+![Invierno 2000](Graphics/invierno/2000s/Heatmap_invierno_2000s.png)
+
 
 3.2 Primavera general
 Código PCA:
@@ -220,13 +248,11 @@ biplot(pca_prim)
 
 ```
 Screeplot:
-![Screeplot Invierno](graficos/screeplot_invierno.png)
-
+![Screeplot primavera](Graphics/primavera/screePlot_primavera.png)
 
 PCA:
+![PCA primavera](Graphics/primavera/PCA_primavera.png)
 
-
-Heatmap:
 
 3.2.1 Análisis estacional por decada
 Década 1950-1959
@@ -239,6 +265,15 @@ plot(pca_prim_50s, type = "l")
 biplot(pca_prim_90s)
 
 ```
+Screeplot:
+![Primavera 1950](Graphics/primavera/1950s/ScreePlot_primavera_1950s.png)
+
+PCA:
+![Primavera 1950](Graphics/primavera/1950s/PCA_primavera_1950s.png)
+
+Heatmap
+![Primavera 1950](Graphics/primavera/1950s/Heatmap_primavera_1950s.png)
+
 Década 1980-1989
 
 ```r
@@ -249,6 +284,15 @@ plot(pca_prim_80s, type = "l")
 biplot(pca_prim_80s)
 
 ```
+Screeplot:
+![Primavera 1980](Graphics/primavera/1980s/ScreePlot_primavera_1980s.png)
+
+PCA:
+![Primavera 1980](Graphics/primavera/1980s/PCA_primavera_1980s.png)
+
+Heatmap
+![Primavera 1980](Graphics/primavera/1980s/Heatmap_primavera_1980s.png)
+
 Década 2000-2009
 
 ```r
@@ -259,6 +303,14 @@ plot(pca_prim_00s, type = "l")
 biplot(pca_prim_00s)
 
 ```
+Screeplot:
+![Primavera 2000](Graphics/primavera/2000s/ScreePlot_primavera_2000s.png)
+
+PCA:
+![Primavera 2000](Graphics/primavera/2000s/PCA_primavera_2000s.png)
+
+Heatmap
+![Primavera 2000](Graphics/primavera/2000s/Heatmap_primavera_2000s.png)
 
 3.3 Verano general
 Código PCA:
@@ -272,13 +324,11 @@ biplot(pca_ver)
 
 ```
 Screeplot:
-![Screeplot Invierno](graficos/screeplot_invierno.png)
-
+![Screeplot Verano](Graphics/verano/screePlot_verano.png)
 
 PCA:
+![PCA Verano](Graphics/verano/PCA_verano.png)
 
-
-Heatmap:
 3.2.1 Análisis estacional por decada
 Década 1950-1959
 
@@ -290,6 +340,15 @@ plot(pca_ver_50s, type = "l")
 biplot(pca_ver_50s)
 
 ```
+Screeplot:
+![Verano 1950](Graphics/verano/1950s/ScreePlot_verano_1950s.png)
+
+PCA:
+![Verano 1950](Graphics/verano/1950s/PCA_verano_1950s.png)
+
+Heatmap
+![Verano 1950](Graphics/verano/1950s/Heatmap_verano_1950s.png)
+
 Década 1980-1989
 
 ```r
@@ -300,6 +359,15 @@ plot(pca_ver_80s, type = "l")
 biplot(pca_ver_80s)
 
 ```
+Screeplot:
+![Verano 1980](Graphics/verano/1980s/ScreePlot_verano_1980s.png)
+
+PCA:
+![Verano 1980](Graphics/verano/1980s/PCA_verano_1980s.png)
+
+Heatmap
+![Verano 1980](Graphics/verano/1980s/Heatmap_verano_1980s.png)
+
 Década 2000-2009
 
 ```r
@@ -310,6 +378,15 @@ plot(pca_ver_00s, type = "l")
 biplot(pca_ver_00s)
 
 ```
+Screeplot:
+![Verano 2000](Graphics/verano/2000s/ScreePlot_verano_2000s.png)
+
+PCA:
+![Verano 2000](Graphics/verano/2000s/PCA_verano_2000s.png)
+
+Heatmap
+![Verano 2000](Graphics/verano/2000s/Heatmap_verano_2000s.png)
+
 3.4 Otoño general
 Código PCA:
 
@@ -322,13 +399,11 @@ biplot(pca_oto)
 
 ```
 Screeplot:
-![Screeplot Invierno](graficos/screeplot_invierno.png)
-
+![Screeplot Otoño](Graphics/otoño/screePlot_otoño.png)
 
 PCA:
+![PCA Otoño](Graphics/otoño/PCA_otoño.png)
 
-
-Heatmap:
 
 3.4.1 Análisis estacional por decada
 Década 1950-1959
@@ -341,6 +416,15 @@ plot(pca_oto_50s, type = "l")
 biplot(pca_oto_50s)
 
 ```
+Screeplot:
+![Otoño 1950](Graphics/otoño/1950s/ScreePlot_otoño_1950s.png)
+
+PCA:
+![Otoño 1950](Graphics/otoño/1950s/PCA_otoño_1950s.png)
+
+Heatmap
+![Otoño 1950](Graphics/otoño/1950s/Heatmap_otoño_1950s.png)
+
 Década 1980-1989
 
 ```r
@@ -351,6 +435,15 @@ plot(pca_oto_80s, type = "l")
 biplot(pca_oto_80s)
 
 ```
+Screeplot:
+![Otoño 1980](Graphics/otoño/1980s/ScreePlot_otoño_1980s.png)
+
+PCA:
+![Otoño 1980](Graphics/otoño/1980s/PCA_otoño_1980s.png)
+
+Heatmap
+![Otoño 1980](Graphics/otoño/1980s/Heatmap_otoño_1980s.png)
+
 Década 2000-2009
 
 ```r
@@ -361,7 +454,14 @@ plot(pca_oto_00s, type = "l")
 biplot(pca_oto_00s)
 
 ```
+Screeplot:
+![Otoño 2000](Graphics/otoño/2000s/ScreePlot_otoño_2000s.png)
 
+PCA:
+![Otoño 2000](Graphics/otoño/2000s/PCA_otoño_2000s.png)
+
+Heatmap
+![Otoño 2000](Graphics/otoño/2000s/Heatmap_otoño_2000s.png)
 
 
 
