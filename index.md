@@ -152,7 +152,7 @@ for (estacion in names(meses_estaciones)) {
 
 ```
 Screeplot:
-![Screeplot Invierno](graphics/screeplot_invierno.png)
+
 
 
 PCA:
@@ -170,11 +170,11 @@ biplot(pca_inv)
 
 ```
 Screeplot:
-![Screeplot Invierno](graficos/screeplot_invierno.png)
+![Screeplot Invierno](Graphics/screePlot_invierno.png)
 
 
 PCA:
-
+![PCA invierno](Graphics/PCA_invierno.png)
 
 Heatmap:
 3.1.1 Análisis estacional por decada
