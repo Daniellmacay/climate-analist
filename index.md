@@ -248,7 +248,7 @@ biplot(pca_prim)
 
 ```
 Screeplot:
-![Screeplot primavera](Graphics/primavera/screePlot_primavera.png)
+![Screeplot primavera](Graphics/primavera/ScreePlot_primavera.png)
 
 PCA:
 ![PCA primavera](Graphics/primavera/PCA_primavera.png)
