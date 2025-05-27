@@ -170,7 +170,7 @@ biplot(pca_inv)
 
 ```
 Screeplot:
-![Screeplot Invierno](Graphics/invierno/screePlot_invierno.png)
+![Screeplot Invierno](Graphics/invierno/ScreePlot_invierno.png)
 
 PCA:
 ![PCA invierno](Graphics/invierno/PCA_invierno.png)
