@@ -1,18 +1,33 @@
 📊 Análisis de Temperaturas: PCA por Estación y Década
-Este proyecto analiza los patrones de temperatura utilizando Análisis de Componentes Principales (PCA) a partir de un archivo NetCDF. Se realiza una evaluación mensual, por estación y por década (1950s, 1980s, 2000s).
+Este proyecto analiza los patrones espaciales y temporales de temperatura mediante Análisis de Componentes Principales (PCA), utilizando datos climáticos en formato NetCDF.
 
 ---
 
 ## 📌 Índice
 
-- [1. Extracción y apertura de datos climáticos](#1-extracción-y-apertura-de-datos-climáticos)
-- [2. Análisis global por estación](#2-definicion-de-estaciones,-décadas-y-procesamiento-temporal)
-- [3. Funciones para analizar PCA y gráficos](#3-análisis-PCA-por-estación)
-  - [3.1 Invierno](#31-invierno)
-  - [3.2 Primavera](#32-primavera)
-  - [3.3 Verano](#33-verano)
-  - [3.4 Otoño](#34-otoño)
-- [4. Resultados](#4-resultados)
+1. [Extracción y apertura de datos climáticos](#1-extracción-y-apertura-de-datos-climáticos)
+2. [Definición de estaciones, décadas y procesamiento temporal](#2-definición-de-estaciones-décadas-y-procesamiento-temporal)
+3. [Funciones para análisis PCA y gráficos](#3-funciones-para-análisis-pca-y-gráficos)
+4. [Análisis por estación y década](#4-análisis-por-estación-y-década)
+   - [4.1 Invierno](#41-invierno)
+     - [4.1.1 Década 1950s](#411-década-1950s)
+     - [4.1.2 Década 1980s](#412-década-1980s)
+     - [4.1.3 Década 2000s](#413-década-2000s)
+     - [4.1.4 Comparación de temperaturas para invierno]
+   - [4.2 Primavera](#42-primavera)
+     - [4.2.1 Década 1950s](#421-década-1950s)
+     - [4.2.2 Década 1980s](#422-década-1980s)
+     - [4.2.3 Década 2000s](#423-década-2000s)
+   - [4.3 Verano](#43-verano)
+     - [4.3.1 Década 1950s](#431-década-1950s)
+     - [4.3.2 Década 1980s](#432-década-1980s)
+     - [4.3.3 Década 2000s](#433-década-2000s)
+   - [4.4 Otoño](#44-otoño)
+     - [4.4.1 Década 1950s](#441-década-1950s)
+     - [4.4.2 Década 1980s](#442-década-1980s)
+     - [4.4.3 Década 2000s](#443-década-2000s)
+5. [Resultados](#5-resultados)
+
 
 ---
 
@@ -31,17 +46,22 @@ library(reshape2)
 library(patchwork)
 
 # Abrir archivo NetCDF
-data <- nc_open("archivo.nc")
+nc <- nc_open("archivo.nc")
 
 # Extraer variables
-lon <- ncvar_get(data, "lon")
-lat <- ncvar_get(data, "lat")
-temp <- ncvar_get(data, "temperature")
+lon <- ncvar_get(nc, "lon")
+lat <- ncvar_get(nc, "lat")
+temp <- ncvar_get(nc, "temperature")
+tiempo <- ncvar_get(nc, "time")
 
 # Cerrar archivo
-nc_close(data)
+nc_close(nc)
 
-# Mostrar grafico de temperaturas globales
+# Agregar columnas auxiliares
+years <- floor(tiempo)
+months <- round((tiempo - years) * 12) + 1
+
+# Mostrar grafico de coordenadas globales
 plot(lon,lat)
 ```
 ![extracción de temperatura global](Graphics/Rplot.png)
@@ -108,57 +128,7 @@ graficar_heatmap <- function(matriz, decada, estacion) {
 
 
 ```
-4. Análisis por estación y década: PCA, Screeplots y Heatmaps
-Para cada estación y década se realiza el PCA, se guardan los gráficos correspondientes y se genera el heatmap.
 
-```r
-for (estacion in names(meses_estaciones)) {
-  indices_estacion <- get_indices(meses_estaciones[[estacion]])
-  
-  # PCA para toda la estación
-  temp_estacion <- temp[, indices_estacion]
-  resultado_pca <- hacer_pca(temp_estacion)
-  pca_obj <- resultado_pca$pca
-  
-  scree_plot <- graficar_scree(pca_obj, paste("Scree Plot -", toupper(estacion)))
-  pca_plot <- graficar_pca(pca_obj, paste("PCA -", toupper(estacion)))
-  
-  ggsave(filename = file.path("Graficos", estacion, paste0("ScreePlot_", estacion, ".png")), plot = scree_plot)
-  ggsave(filename = file.path("Graficos", estacion, paste0("PCA_", estacion, ".png")), plot = pca_plot)
-  
-  for (decada in names(decadas)) {
-    años_decada <- decadas[[decada]]
-    indices_decada <- which(tiempo_years %in% años_decada)
-    indices_combinados <- intersect(indices_estacion, indices_decada)
-    temp_subset <- temp[, indices_combinados]
-    
-    if (ncol(temp_subset) > 2) {
-      resultado_pca_decada <- hacer_pca(temp_subset)
-      pca_obj_decada <- resultado_pca_decada$pca
-      temp_clean <- resultado_pca_decada$temp_clean
-      
-      scree_plot_decada <- graficar_scree(pca_obj_decada, paste("Scree Plot -", toupper(estacion), decada))
-      ggsave(filename = file.path("Graficos", estacion, decada, paste0("ScreePlot_", estacion, "_", decada, ".png")), plot = scree_plot_decada)
-      
-      pca_plot_decada <- graficar_pca(pca_obj_decada, paste("PCA -", toupper(estacion), decada))
-      ggsave(filename = file.path("Graficos", estacion, decada, paste0("PCA_", estacion, "_", decada, ".png")), plot = pca_plot_decada)
-      
-      heatmap_plot <- graficar_heatmap(temp_clean, decada, estacion)
-      ggsave(filename = file.path("Graficos", estacion, decada, paste0("Heatmap_", estacion, "_", decada, ".png")), plot = heatmap_plot)
-    }
-  }
-}
-
-
-```
-Screeplot:
-
-
-
-PCA:
-
-
-Heatmap:
 3.1 Invierno general
 
 ```r
@@ -235,6 +205,47 @@ PCA:
 Heatmap
 ![Invierno 2000](Graphics/invierno/2000s/Heatmap_invierno_2000s.png)
 
+Comparación de temperaturas para invierno
+
+```r
+# PCA por década
+pca_inv_50s <- prcomp(mat_50s, scale. = TRUE)
+pca_inv_80s <- prcomp(mat_80s, scale. = TRUE)
+pca_inv_00s <- prcomp(mat_00s, scale. = TRUE)
+
+# Varianza explicada
+var_50s <- summary(pca_inv_50s)$importance[2, ]
+var_80s <- summary(pca_inv_80s)$importance[2, ]
+var_00s <- summary(pca_inv_00s)$importance[2, ]
+
+# Crear data frame
+df_var <- tibble(
+  PC = paste0("PC", 1:length(var_50s)),
+  `1950s` = var_50s,
+  `1980s` = var_80s,
+  `2000s` = var_00s
+) %>%
+  pivot_longer(cols = -PC, names_to = "Década", values_to = "Varianza")
+
+# Graficar
+grafico <- ggplot(df_var, aes(x = PC, y = Varianza, fill = Década)) +
+  geom_bar(stat = "identity", position = "dodge") +
+  labs(
+    title = "Comparación de Varianza Explicada por PCA - Invierno",
+    y = "Proporción de varianza explicada",
+    x = "Componente Principal"
+  ) +
+  scale_fill_brewer(palette = "Set2") +
+  theme_minimal()
+
+# Mostrar el gráfico
+print(grafico)
+
+# Guardar el gráfico como imagen
+ggsave("varianza_pca_invierno.png", plot = grafico, width = 8, height = 5, dpi = 300)
+
+
+```
 
 3.2 Primavera general
 Código PCA:
@@ -312,6 +323,49 @@ PCA:
 Heatmap
 ![Primavera 2000](Graphics/primavera/2000s/Heatmap_primavera_2000s.png)
 
+Comparación de temperaturas para primavera
+
+```r
+
+# PCA por década
+pca_prim_50s <- prcomp(mat_50s, scale. = TRUE)
+pca_prim_80s <- prcomp(mat_80s, scale. = TRUE)
+pca_prim_00s <- prcomp(mat_00s, scale. = TRUE)
+
+# Varianza explicada
+var_50s <- summary(pca_prim_50s)$importance[2, ]
+var_80s <- summary(pca_prim_80s)$importance[2, ]
+var_00s <- summary(pca_prim_00s)$importance[2, ]
+
+# Crear data frame
+df_var <- tibble(
+  PC = paste0("PC", 1:length(var_50s)),
+  `1950s` = var_50s,
+  `1980s` = var_80s,
+  `2000s` = var_00s
+) %>%
+  pivot_longer(cols = -PC, names_to = "Década", values_to = "Varianza")
+
+# Graficar
+grafico <- ggplot(df_var, aes(x = PC, y = Varianza, fill = Década)) +
+  geom_bar(stat = "identity", position = "dodge") +
+  labs(
+    title = "Comparación de Varianza Explicada por PCA - Primavera",
+    y = "Proporción de varianza explicada",
+    x = "Componente Principal"
+  ) +
+  scale_fill_brewer(palette = "Set2") +
+  theme_minimal()
+
+# Mostrar el gráfico
+print(grafico)
+
+# Guardar el gráfico como imagen
+ggsave("varianza_pca_primavera.png", plot = grafico, width = 8, height = 5, dpi = 300)
+
+
+```
+
 3.3 Verano general
 Código PCA:
 
@@ -386,6 +440,48 @@ PCA:
 
 Heatmap
 ![Verano 2000](Graphics/verano/2000s/Heatmap_verano_2000s.png)
+
+Comparación de temperaturas para verano
+
+```r
+
+# PCA por década
+pca_verano_50s <- prcomp(mat_50s, scale. = TRUE)
+pca_verano_80s <- prcomp(mat_80s, scale. = TRUE)
+pca_verano_00s <- prcomp(mat_00s, scale. = TRUE)
+
+# Varianza explicada
+var_50s <- summary(pca_verano_50s)$importance[2, ]
+var_80s <- summary(pca_verano_80s)$importance[2, ]
+var_00s <- summary(pca_verano_00s)$importance[2, ]
+
+# Crear data frame
+df_var <- tibble(
+  PC = paste0("PC", 1:length(var_50s)),
+  `1950s` = var_50s,
+  `1980s` = var_80s,
+  `2000s` = var_00s
+) %>%
+  pivot_longer(cols = -PC, names_to = "Década", values_to = "Varianza")
+
+# Graficar
+grafico <- ggplot(df_var, aes(x = PC, y = Varianza, fill = Década)) +
+  geom_bar(stat = "identity", position = "dodge") +
+  labs(
+    title = "Comparación de Varianza Explicada por PCA - Verano",
+    y = "Proporción de varianza explicada",
+    x = "Componente Principal"
+  ) +
+  scale_fill_brewer(palette = "Set2") +
+  theme_minimal()
+
+# Mostrar el gráfico
+print(grafico)
+
+# Guardar el gráfico como imagen
+ggsave("varianza_pca_verano.png", plot = grafico, width = 8, height = 5, dpi = 300)
+
+```
 
 3.4 Otoño general
 Código PCA:
@@ -462,6 +558,48 @@ PCA:
 
 Heatmap
 ![Otoño 2000](Graphics/otoño/2000s/Heatmap_otoño_2000s.png)
+
+Comparación de temperaturas para otoño
+
+```r
+
+# PCA por década
+pca_otono_50s <- prcomp(mat_50s, scale. = TRUE)
+pca_otono_80s <- prcomp(mat_80s, scale. = TRUE)
+pca_otono_00s <- prcomp(mat_00s, scale. = TRUE)
+
+# Varianza explicada
+var_50s <- summary(pca_otono_50s)$importance[2, ]
+var_80s <- summary(pca_otono_80s)$importance[2, ]
+var_00s <- summary(pca_otono_00s)$importance[2, ]
+
+# Crear data frame
+df_var <- tibble(
+  PC = paste0("PC", 1:length(var_50s)),
+  `1950s` = var_50s,
+  `1980s` = var_80s,
+  `2000s` = var_00s
+) %>%
+  pivot_longer(cols = -PC, names_to = "Década", values_to = "Varianza")
+
+# Graficar
+grafico <- ggplot(df_var, aes(x = PC, y = Varianza, fill = Década)) +
+  geom_bar(stat = "identity", position = "dodge") +
+  labs(
+    title = "Comparación de Varianza Explicada por PCA - Otono",
+    y = "Proporción de varianza explicada",
+    x = "Componente Principal"
+  ) +
+  scale_fill_brewer(palette = "Set2") +
+  theme_minimal()
+
+# Mostrar el gráfico
+print(grafico)
+
+# Guardar el gráfico como imagen
+ggsave("varianza_pca_otono.png", plot = grafico, width = 8, height = 5, dpi = 300)
+
+```
 
 
 
